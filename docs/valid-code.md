@@ -12,17 +12,17 @@ class Car:
 		self.model = model
 ```
 
-This is illegal. Instead, describe objects in dictionary formats. If you tend to use classes to encapsulate data, simply use Python dictionaries instead. This is especially useful because of Contracting's storage model that makes it easy to store dictionaries.
+This is illegal and will fail. Instead, think of each smart contracting having access to storage space. To access this storage space, you use a [Hash](concepts/storage/#hash-api) or a [Variable](concepts/storage/#variable-api) object. Hash objects are ['auto-vivifying'](concepts/storage/#multihashes) which just means they are dynamic. You can access and store data into certain keys by using the following pattern:
 
 ```python
 cars = Hash()
-cars['balthasar'] = {
-	'make': 'Ford',
-	'model': 'Contour'
-}
+
+# First key is the primary key, or the name of the object
+cars['balthasar', 'make'] = 'Ford'
+cars['balthasar', 'model'] = 'Contour'
 ```
 
-Read more about storage in the Storage section.
+Read more about storage in the [Storage](concepts/storage) section.
 
 ## Restricted Builtins
 

@@ -8,8 +8,6 @@ nav:
       - Motivation: intro/motivation.md
       - Philosophy: intro/philosophy.md
 
-    - Installing: install.md
-
     - Quick Start:
       - First Contract: quickstart/import-submit.md
       - Executing Functions: quickstart/functions.md
