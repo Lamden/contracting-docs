@@ -1,16 +1,16 @@
 ## Testing and Feedback
 
-As smart contracts get more and more complex, you need to be able to test them to make sure that they are doing what they are supposed to do. This becomes especially important once you start adding storage variables and functions that execute based on the person who is calling them. These will be explained later.
+As smart contracts get more and more complex, you need to be able to test them to make sure that they are doing what they are supposed to do. This becomes especially important once you start adding storage variables and methods that execute based on the person who is calling them. These will be explained later.
 
 However, for now, we can write a simple smart contract and test to make sure it works.
 
 ```python
 def test_me():
 	@export
-	def call_this(a):
-		return complex_function(a)
+	def call_this(a: int):
+		return complex_method(a)
 
-	def complex_function(a):
+	def complex_method(a):
 		if a > 50:
 			return 'Quack!'
 		elif a < 10:
@@ -31,10 +31,10 @@ from contracting.client import ContractingClient
 
 def test_me():
 	@export
-	def call_this(a):
-		return complex_function(a)
+	def call_this(a: int):
+		return complex_method(a)
 
-	def complex_function(a):
+	def complex_method(a):
 		if a > 50:
 			return 'Quack!'
 		elif a < 10:
@@ -60,7 +60,7 @@ Key things that are happening:
 
 * We import the client.
 * We define our smart contract in a closure.
-* We override the `setUp` and `tearDown` functions in `TestCase` which execute before and after every test respectively. This gives us a clean state to work upon for each test. 
+* We override the `setUp` and `tearDown` methods in `TestCase` which execute before and after every test respectively. This gives us a clean state to work upon for each test. 
 
 Before each test, we completely flush and resubmit the contract. After each test, we flush again. This is for sanity.
 

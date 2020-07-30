@@ -10,15 +10,15 @@ nav:
 
     - Quick Start:
       - First Contract: quickstart/import-submit.md
-      - Executing Functions: quickstart/functions.md
+      - Executing Functions: quickstart/methods.md
       - Storing Data: quickstart/storage.md
       - Advanced Features: quickstart/submit.md
       - Testing and Feedback: quickstart/testing.md
 
     - Key Concepts: 
         - Execution Model: concepts/model.md
-        - Valid Code: valid-code.md
-        - Functions: concepts/functions.md
+        - Valid Code: concepts/valid-code.md
+        - Methods: concepts/methods.md
         - Storage: concepts/storage.md
         - Imports: concepts/imports.md
         - Context: concepts/context.md
@@ -27,3 +27,5 @@ nav:
         - datetime Module: concepts/time.md
         - hashlib Module: concepts/hashing.md
         - random Module: concepts/randoms.md
+
+    - Submitting to Lamden: submitting.md

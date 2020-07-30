@@ -13,7 +13,7 @@ def submit_contract(name, code, owner=None, constructor_args={}):
 
 The main concept is that generally \_\_ variables are private and not allowed. However, this code is injected into the state space before the software starts up. Once it is in the state, the `__Contract` object can never be submitted in another smart contract by the user because it will fail.
 
-Calling on the `submit_contract` function will then call `__Contract` which is a special ORM object. `__Contract`'s only job is to submit contracts.
+Calling on the `submit_contract` method will then call `__Contract` which is a special ORM object. `__Contract`'s only job is to submit contracts.
 
 ```python
 class Contract:
@@ -42,7 +42,7 @@ The code that is submitted is put through the `ContractingCompiler` with the `li
 
 `__Contract` will then gather the working environment and execute it on the submitted code. This encapsulates the execution environment completely within the new code module without potential leakage or exposure. The `__contract__` flag is also set to indicate to the Python import system that this code cannot use any builtins at runtime.
 
-`__Contract` will then try to see if there is a `@construct` function available on the code. If this is the case, it will execute this function and pass the constructor arguments into it if any are provided.
+`__Contract` will then try to see if there is a `@construct` method available on the code. If this is the case, it will execute this method and pass the constructor arguments into it if any are provided.
 
 Finally, the code string, as compiled, is stored in the state space so that other contracts can import it and users can transact upon it.
 
@@ -54,9 +54,9 @@ If there are no violations, the code is then passed to the compiler which does t
 
 ## Compiler
 
-The Contracting Compiler takes the linted code and uses a `NodeTransformer` object from the Python AST module to turn the code into a lower representation of what it should be so that Contracting can directly execute functions against it.
+The Contracting Compiler takes the linted code and uses a `NodeTransformer` object from the Python AST module to turn the code into a lower representation of what it should be so that Contracting can directly execute methods against it.
 
-Some of these transforms include appending `__` to `@export` decorators and variables, renaming the `@construct` function to `____`, and inserting the correct keyword arguments into the ORM initialization functions.
+Some of these transforms include appending `__` to `@export` decorators and variables, renaming the `@construct` method to `____`, and inserting the correct keyword arguments into the ORM initialization methods.
 
 Here is an example of what code looks like before and after it goes through the compiler.
 
@@ -69,7 +69,7 @@ def seed():
     balances['stu'] = 1000000
 
 @export
-def transfer(amount, to):
+def transfer(amount: float, to: str):
     sender = ctx.signer
     assert balances[sender] >= amount
 
@@ -81,7 +81,7 @@ def transfer(amount, to):
         balances[to] += amount
 
 @export
-def balance(account):
+def balance(account: str):
     return balances[account]
 ```
 #### After
@@ -94,7 +94,7 @@ def ____():
 
 
 @__export('__main__')
-def transfer(amount, to):
+def transfer(amount: float, to: str):
     sender = ctx.signer
     assert __balances[sender] >= amount
     __balances[sender] -= amount
@@ -105,6 +105,6 @@ def transfer(amount, to):
 
 
 @__export('__main__')
-def balance(account):
+def balance(account: str):
     return __balances[account]
 ```

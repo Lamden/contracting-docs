@@ -10,7 +10,7 @@ def seed():
     balances[ctx.caller] = 1_000_000
 
 @export
-def transfer(amount, to):
+def transfer(amount: float, to: str):
     sender = ctx.signer
     assert balances[sender] >= amount, 'Not enough coins to send!'
 
@@ -22,7 +22,7 @@ def transfer(amount, to):
         balances[to] += amount
 
 @export
-def balance(account):
+def balance(account: str):
     return balances[account]
 
 ```

@@ -1,5 +1,5 @@
 ## How It Works
-Contracting stores state in a key-value storage system where each smart contract has it's own data space that cannot be accessed by other smart contracts besides through the `@export` functions.
+Contracting stores state in a key-value storage system where each smart contract has it's own data space that cannot be accessed by other smart contracts besides through the `@export` methods.
 
 When you submit a smart contract, keys are created to store the code and compiled bytecode of the contract. For example:
 
@@ -17,6 +17,7 @@ Key	|	Value
 -	| -
 contract.\_\_compiled\_\_ | Python Bytecode
 contract.\_\_code\_\_ | Python Code
+contract.\_\_developer\_\_ | Developer which receives rewards for transactions
 contract.owner | ctx.caller at submission time
 
 Storage follows a simple pattern such that each variable or hash stored is prefaced by the contract name and a period delimiter. If the variable has additional keys, they are appended to the end seperated by colons.
@@ -135,7 +136,7 @@ def some_contract():
 
 Returns the value that is stored at this Variable's state location.
 
-__NOTE:__ The converse applies to the `get` function. Simply setting a variable to the Variable object will just copy the reference, not the underlying data.
+__NOTE:__ The converse applies to the `get` method. Simply setting a variable to the Variable object will just copy the reference, not the underlying data.
 
 ```python
 owner = Variable()

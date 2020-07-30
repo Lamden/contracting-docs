@@ -6,14 +6,14 @@ Simply do the following:
 ```python
 def random_contract():
 	@export
-	def uses_random_function():
+	def uses_random_method():
 		...
 
 client = ContractingClient()
 client.submit(random_contract)
 
 rc = client.get_contract('random_contract')
-rc.uses_random_function(environment={
+rc.uses_random_method(environment={
 	'block_height': 0,
 	'block_hash': 'any_string'
 	})
@@ -21,7 +21,7 @@ rc.uses_random_function(environment={
 
 #### random.seed()
 
-This function is required to be run once per transaction. If it is not called, the contract will fail. You must seed every contract like so:
+This method is required to be run once per transaction. If it is not called, the contract will fail. You must seed every contract like so:
 
 ```python
 def random_contract():
@@ -36,9 +36,9 @@ def random_contract():
 		...
 ```
 
-#### Available functions
+#### Available methods
 
-Besides seeding, the rest of the module follows Python random 1:1. Here are the functions you can use and reference the [Python manual](https://docs.python.org/3.6/library/random.html) to read more about how each one behaves.
+Besides seeding, the rest of the module follows Python random 1:1. Here are the methods you can use and reference the [Python manual](https://docs.python.org/3.6/library/random.html) to read more about how each one behaves.
 
 ```python
 random.shuffle(l: list)

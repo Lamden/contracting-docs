@@ -123,7 +123,7 @@ datetime.SECONDS == datetime.Timedelta(seconds=1) # True
 ## Now
 In the Lamden blockchain, a special variable called `now` is passed into the execution environment. Contracting on its own does not have this variable available. You would have to add it into the environment yourself.
 
-If you always use the `ContractingClient` object you will not have to worry about this problem. The `ContractingClient` adds a `now` variable if you execute functions on an `AbstractContract` that is pulled from the state space.
+If you always use the `ContractingClient` object you will not have to worry about this problem. The `ContractingClient` adds a `now` variable if you execute methods on an `AbstractContract` that is pulled from the state space.
 
 However, if you use the raw `Executor` object, `now` will not be available. Proceed accordingly.
 

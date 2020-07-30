@@ -2,7 +2,7 @@
 
 Sometimes, you'll want to setup a particular state at the start of the smart contract. Imagine that you want to mint a certain amount of tokens to the creator of the smart contract.
 
-To do so, you can provide a `@construct` decorator on top of a single function. This function will then be executed when the contract is submitted.
+To do so, you can provide a `@construct` decorator on top of a single method. This method will then be executed when the contract is submitted.
 
 ```python
 def token():
@@ -20,11 +20,11 @@ def token():
 	balances = Hash()
 
 	@construct
-	def mint(owner):
+	def mint(owner: str):
 		balances[owner] = 100
 ```
 
-Now you have to submit the contract and pass the arguments at submission time. Read more about this in the 'Functions' section in 'Key Concepts'.
+Now you have to submit the contract and pass the arguments at submission time. Read more about this in the 'methods' section in 'Key Concepts'.
 
 ```python
 c = ContractingClient()
@@ -35,9 +35,9 @@ c.submit(token, constructor_args={
 
 ## Context
 
-As you create more advanced smart contracts, you'll need a way to know who is sending the transaction or calling a function. This is where context comes into play. `ctx.caller` is a variable that is available in all smart contracts on default. It tells you who is calling the function.
+As you create more advanced smart contracts, you'll need a way to know who is sending the transaction or calling a method. This is where context comes into play. `ctx.caller` is a variable that is available in all smart contracts on default. It tells you who is calling the method.
 
-`ctx.caller` changes to 'whoever' is calling the current function. Therefore, if a smart contract calls a function on another smart contract, the name of the caller is changed. `ctx.caller` is now the name of the calling smart contract while the function is executing. `ctx.caller` changes back when the scope is returned.
+`ctx.caller` changes to 'whoever' is calling the current method. Therefore, if a smart contract calls a method on another smart contract, the name of the caller is changed. `ctx.caller` is now the name of the calling smart contract while the method is executing. `ctx.caller` changes back when the scope is returned.
 
 ```python
 def token():
@@ -60,7 +60,7 @@ There are three other context variables that are explained in Key Concepts.
 
 ## Imports
 
-Complex contracts will need to import functions from other smart contracts. You can import any smart contract by using the `import` keyword. The entire contract is available for you to call. Any `@export` function is now available for your contract to call. When you call a function on this imported contract, the `ctx.caller` will change to the name of your smart contract.
+Complex contracts will need to import methods from other smart contracts. You can import any smart contract by using the `import` keyword. The entire contract is available for you to call. Any `@export` method is now available for your contract to call. When you call a method on this imported contract, the `ctx.caller` will change to the name of your smart contract.
 
 ```python
 def magic():

@@ -1,7 +1,20 @@
 ## Motivation
 If you look at the current market of blockchain smart contracting languages, most take a hard right turn into the 'security through obscurity' lane. The rationale is that if you use highly functional and low level languages, it is harder to make errors because the type systems are so strict.
 
-*See more examples of this in the Comparison section below*
+* * *
+
+Tezos says this about their own language [Michelson](https://www.michelson-lang.com/why-michelson.html):
+
+```
+At first sight, Michelson is a strange language. 
+It doesn’t include many features like polymorphism, closures, or named functions. 
+Compared to a language like Haskell or OCaml, it seems underpowered; 
+its stack is not always easy to deal with; there is no standard library.
+```
+
+*Why would you ever choose to use this language for your newest application?*
+
+* * *
 
 This makes sense, but it is also at the cost of developer adoption. People have a hard time understanding blockchain as it is. Why make it even harder for them to explore and get started?
 

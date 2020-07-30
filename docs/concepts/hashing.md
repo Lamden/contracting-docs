@@ -1,6 +1,6 @@
 ## hashlib Standard Library
 
-`hashlib` is an extremely small analog to the much more powerful Python hashlib equivalent. They do not share the same API. The Contracting version does not require setting up an object and updating it with bytes. The following functions are available on `hashlib`.
+`hashlib` is an extremely small analog to the much more powerful Python hashlib equivalent. They do not share the same API. The Contracting version does not require setting up an object and updating it with bytes. The following methods are available on `hashlib`.
 
 ### hashlib.sha3(hex_str: str)
 

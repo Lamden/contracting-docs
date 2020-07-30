@@ -26,19 +26,21 @@ def hello_world():
 		return 'World!'
 
 	@export
-	def add(a, b):
+	def add(a: int, b: int):
 		return private_add(a, b)
 
 	def private_add(a, b):
 		return a + b
 ```
 
-Off the bat, notice two things:
+Off the bat, notice three things:
 
- 1. The smart contract is a closure (a function inside of a function)
+ 1. The smart contract is a closure (a method inside of a method). 
+     * This is so you can test and develop in any Python IDE you prefer (PyCharm, VSCode, Sublime Text, etc) and push the contract live manually when you are done.
  2. There is an `@export` decorator.
-
- This will make sense in a bit. For now, notice them and let's submit this into the smart contracting 'state space.'
+     * This is to denote that other people can submit a transaction to this method and it will be executed.
+ 3. The `add` method has type annotations but the `private_add` does not.
+     * All exported methods must specify the types for their arguments. Private methods do not.
 
 ```python
 client.submit(hello_world)
@@ -50,4 +52,4 @@ client.get_contracts()
 
 If the `'hello_world'` contract now appears in the returned list, you've successfully submitted your first smart contract. Congrats!
 
-*NOTE:* For submitting closures, the name of the contract is automatically taken from the name of the closure. `def my_func():` becomes `my_func` in the smart contract state space, etc.
+*NOTE:* For submitting closures, the name of the contract is automatically taken from the name of the closure. `def my_func():` becomes `my_func` in the smart contract state space, etc. You can override this by passing the `name` argument into `submit`.

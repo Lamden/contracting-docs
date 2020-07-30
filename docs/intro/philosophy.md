@@ -7,7 +7,7 @@ Some will argue that this could allow for sub-par development to occur on a bloc
 
 While it is true that 'poor' quality code could be deployed on the Lamden blockchain, this is also true for smart contracting systems that use functional languages as a barrier of entry.
 
-The claim is that functional languages are easier to analyze for 'correctness,' which simply means that a function will have the effects that you desire. However, no language gaurds against actual bugs.
+The claim is that functional languages are easier to analyze for 'correctness,' which simply means that a method will have the effects that you desire. However, no language gaurds against actual bugs.
 
 Actual bugs come from a develop not architecting their system against edge cases. Any system can validate and protect against obfuscated data. Only a purposely designed system has checked each edge case when transitioning through states, accepting input from unauthorized parties, etc.
 
