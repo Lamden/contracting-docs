@@ -10,8 +10,7 @@ nav:
 
     - Quick Start:
       - First Contract: quickstart/import-submit.md
-      - Executing Methods
-      : quickstart/methods.md
+      - Executing Methods: quickstart/methods.md
       - Storing Data: quickstart/storage.md
       - Advanced Features: quickstart/submit.md
       - Testing and Feedback: quickstart/testing.md
