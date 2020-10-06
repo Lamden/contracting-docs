@@ -4,10 +4,7 @@ nav:
     - Home: index.md
     - Windows Installation: windows.md
     
-    - Introduction: 
-      - What: intro/intro.md
-      - Motivation: intro/motivation.md
-      - Philosophy: intro/philosophy.md
+    - Introduction: intro.md
 
     - Quick Start:
       - First Contract: quickstart/import-submit.md
