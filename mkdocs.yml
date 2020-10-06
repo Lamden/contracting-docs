@@ -2,7 +2,7 @@ site_name: Lamden Contracting
 theme: readthedocs
 nav:
     - Home: index.md
-    - Windows Install: windows.md
+    - Windows Installation: windows.md
     
     - Introduction: 
       - What: intro/intro.md
