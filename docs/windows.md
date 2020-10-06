@@ -31,13 +31,17 @@ Luckily Microsoft has a solution! Windows Subsystem for Linux.  Which is basical
 1. Run `code my_token_lamden_tutorial` to open the tutorial folder in VS Code
 1 Under the `server` folder select `contracting_server.py` and in the top right corner hit the play button
  1. The results should be something like below in the termimal window:
+ 
  ```
  onlyluck@OnlyLuck:~/my_token_lamden_tutorial$ /usr/bin/python3 /home/onlyluck/my_token_lamden_tutorial/server/contracting_server.py
 [2020-09-24 00:23:50 -0400] [1990] [INFO] Goin' Fast @ http://0.0.0.0:3737
 [2020-09-24 00:23:50 -0400] [1990] [INFO] Starting worker [1990]
  ````
+ 
  1. Open [http://localhost:3737/contracts](http://localhost:3737/contracts) and if everything is working you should see:
+ 
  ```
  {"contracts":["submission","my_token"]}
  ```
+
 #### With everything running you should be all set to go through the tutorials on [Smart Contracting](https://blog.lamden.io/smart-contracting-with-python-2af233620dca)
