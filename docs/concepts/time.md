@@ -1,4 +1,4 @@
-## datetime Standard Library
+## Datetime Standard Library
 
 Every contract has a special `datetime` library available to it that mimicks some of the functionality of the Python equivalent. The following objects and constants are available:
 
@@ -8,11 +8,11 @@ Every contract has a special `datetime` library available to it that mimicks som
 d = datetime.datetime(year, month, day, hour=0, minute=0, microsecond=0)
 ```
 
-`Datetime` is a pretty close mapping to the Python Datetime object. It requires the year, month, and day at the very least to initialize. All times are in UTC+0.
+`datetime` is a pretty close mapping to the Python Datetime object. It requires the year, month, and day at the very least to initialize. All times are in UTC+0.
 
 #### Comparisons
 
-A valid `Datetime` comparison takes another `Datetime` on the right side of the comparison. All comparisons return `True` or `False`.
+A valid `datetime` comparison takes another `datetime` on the right side of the comparison. All comparisons return `True` or `False`.
 
 ```python
 d1 = datetime.datetime(year=2019, month=10, day=10)
@@ -33,24 +33,24 @@ d1 != d2 # True
 
 #### Operations
 
-There are only two valid operations for `Datetime`. Addition takes a `Timedelta` and returns a new `Datetime` while subtraction takes another `Datetime` and returns a `Timedelta`.
+There are only two valid operations for `datetime`. Addition takes a `timedelta` and returns a new `datetime` while subtraction takes another `datetime` and returns a `timedelta`.
 
-_Use addition to add an interval of time to a `Datetime`._
+_Use addition to add an interval of time to a `datetime`._
 
-_Use subtraction to calculate the interval of time between two `Datetime` objects._
+_Use subtraction to calculate the interval of time between two `datetime` objects._
 
 ```python
 d = datetime.datetime(year=2019, month=10, day=10)
 t = datetime.timedelta(days=1)
 
 # ADDITION
-new_d = d + t # Returns new Datetime
-expected_new_d = Datetime(year=2019, month=10, day=11)
+new_d = d + t # Returns new datetime
+expected_new_d = datetime(year=2019, month=10, day=11)
 
 new_d == expected_new_d # True
 
 # SUBTRACTION
-new_t = new_d - d # Returns a Timedelta. Should reverse the above operation
+new_t = new_d - d # Returns a timedelta. Should reverse the above operation
 
 new_t == t # True
 ```
@@ -60,13 +60,13 @@ new_t == t # True
 t = datetime.timedelta(weeks=0, days=0, hours=0, minutes=0, seconds=0)
 ```
 
-`Timedelta` is also a pretty close mapping to Python's own Timedelta object. It represents an interval of time which can be used to determine expiration dates, etc.
+`timedelta` is also a pretty close mapping to Python's own timedelta object. It represents an interval of time which can be used to determine expiration dates, etc.
 
 For example, if a transaction occurs on a smart contract 2 weeks after it has been initialized, the transactino can fail. If the transaction occurs within the 2 week interval, it would succeed.
 
 #### Comparisons
 
-Comparisons are between two `Timedelta` objects.
+Comparisons are between two `timedelta` objects.
 
 ```python
 t1 = datetime.timedelta(weeks=1, days=1, hours=2)
@@ -87,9 +87,9 @@ t1 != t2 # True
 
 #### Operations
 
-`Timedelta` operations are between other `Timedeltas`, and in one case, `int`. `Timedelta` supports addition, subtraction, and multiplication.
+`timedelta` operations are between other `timedeltas`, and in one case, `int`. `timedelta` supports addition, subtraction, and multiplication.
 
-_While it's technically possible to multiply `Timedelta` objects, it can produce strange results._
+_While it's technically possible to multiply `timedelta` objects, it can produce strange results._
 
 ```python
 t1 = datetime.timedelta(weeks=1)
@@ -110,7 +110,7 @@ t6 == datetime.timedelta(weeks=14) # True
 
 ### Constants
 
-The following `Timedelta` constants are available for you to use.
+The following `timedelta` constants are available for you to use.
 
 ```python
 datetime.WEEKS   == datetime.timedelta(weeks=1)   # True
