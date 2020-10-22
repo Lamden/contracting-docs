@@ -36,7 +36,7 @@ Luckily Microsoft has a solution! Windows Subsystem for Linux.  Which is basical
  onlyluck@OnlyLuck:~/my_token_lamden_tutorial$ /usr/bin/python3 /home/onlyluck/my_token_lamden_tutorial/server/contracting_server.py
 [2020-09-24 00:23:50 -0400] [1990] [INFO] Goin' Fast @ http://0.0.0.0:3737
 [2020-09-24 00:23:50 -0400] [1990] [INFO] Starting worker [1990]
- ````
+ ```
  
  1. Open [http://localhost:3737/contracts](http://localhost:3737/contracts) and if everything is working you should see:
  
