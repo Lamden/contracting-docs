@@ -72,6 +72,35 @@ def example():
 	a = balances['something']
 ```
 
+### Read-only State
+You can read information stored in the states of other smart contracts by using 'foreign' storage objects. These objects provide a read-only view into any storage on any smart contract. This is good for when you want to read data from a smart contract that is not provided by the APIs in the contract itself.
+
+The two storage objects are `ForeignVariable` and `ForeignHash`.
+
+#### Examples
+```python
+f_owner = ForeignVariable(foreign_contract='con_some_contract', foreign_name='name_of_variable')
+f_balances = ForeignHash(foreign_contract='con_some_contract', foreign_name='name_of_other_variable')
+
+@export
+def return_owner():
+    return f_owner.get()
+    
+@export
+def try_setting():
+    # This will fail!
+    f_owner.set('hello!')
+    
+@export
+def return_balance_of(account: str):
+    return f_balances[account]
+
+@export
+def try_setting_hash(account: str):
+    # This will fail!
+    f_balances[account] = 0
+```
+
 ### Variable API
 ```python
 class Variable(Datum):
