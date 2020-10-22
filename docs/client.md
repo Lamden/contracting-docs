@@ -5,36 +5,36 @@ The class uses a factory pattern. The developer calls `get_contract` to load a s
 
 The following is the API reference for the `ContractingClient`:
 
-#### \_\_init__(self, signer, submission_filename, driver, metering, compiler, environment={})
+##### \_\_init__(self, signer, submission_filename, driver, metering, compiler, environment={})
 Allows customization of the initial setup. If you want to use a different submission smart contract, for example, you can set the filename here. You can also specify the driver, if metering is enabled, etc.
 
 On default, metering is disabled and the default signer is 'sys'. The rest of the parameters mimic the Lamden blockchain.
 
-#### set_submission_contract(self, filename=None)
+##### set_submission_contract(self, filename=None)
 If after initialization, you want to change the submission contract, use this function.
 
-#### flush(self)
+##### flush(self)
 Deletes all state information and then puts the submission contract back into state. This is used to set up a 'clean' environment in between tests, for example.
     
-#### get_contract(self, name)
+##### get_contract(self, name)
 Returns an `AbstractContract` given a string name. Returns `None` if the contract does not exist.
     
-#### closure_to_code_string(self, f)
+##### closure_to_code_string(self, f)
 Internal method that takes a Python function and returns the string that should be submitted to the submission contract's `code` argument. This is useful for generating the exact payload of what to send on the Lamden blockchain when submitting a new smart contract after you have locally tested and developed it.
 
-#### lint(self, f, raise_errors=False)
+##### lint(self, f, raise_errors=False)
 Checks the smart contract for any violations. If `raise_errors` is `False`, a list of violations will be returned. Otherwise, a Python `Exception` will be raised if any violation occurs.
    
-#### compile(self, f)
+##### compile(self, f)
 Take a string or a closure, and returns the compiled code as a string.
 
-#### submit(self, f, name=None, metering=None, owner=None, constructor_args={})
+##### submit(self, f, name=None, metering=None, owner=None, constructor_args={})
 Takes a string or a closure and submits it to state. If a string is provided as `f`, the `name` argument must be a string name. Otherwise, if it is a closure, the name is the name of the function.
 
-#### get_contracts(self)
+##### get_contracts(self)
 Returns a list of strings of all contracts currently in state.
 
-#### get_var(self, contract, variable, arguments=[], mark=False)
+##### get_var(self, contract, variable, arguments=[], mark=False)
 Gets any arbitrary key in storage where `contract` is the contract name, `variable` is the name of the Python variable (Variable or Hash), and `arguments` are the additional keys provided.
 
 For example,
@@ -58,7 +58,7 @@ For `sets`, no arguments are provided.
 
 `mark` is an internal argument and should not be used.
 
-#### set_var(self, contract, variable, arguments=[], value=None, mark=False)
+##### set_var(self, contract, variable, arguments=[], value=None, mark=False)
 
 Follows the same format as `get_var` but sets the variable to any arbitrary amount. Good for mocking in tests.
     
@@ -67,13 +67,13 @@ Follows the same format as `get_var` but sets the variable to any arbitrary amou
 ## Abstract Contracts
 `AbstractContract` objects are what are returned when a contract is retrieved from state. They contain all of the exported functions and available attributes. You can also call the non-exported functions using the special `run_private_function` method. Developers do not create `AbstractContract` objects themselves.
 
-#### \_\_init__(self, name, signer, environment, executor: Executor, funcs)
+##### \_\_init__(self, name, signer, environment, executor: Executor, funcs)
 On default, these are set by the `ContractingClient` object used. The `funcs` argument is a list of strings that the `ContractingClient` parses from the code which indicates all of the functions available in the contract. The initialization function then creates partial functions with the `_abstract_function_call` method. These partial functions are dynamically created and correlated to the smart contract function name so the developer experience feels as natural to regular Python as possible and REPLs can be used.
 
-#### keys(self)
+##### keys(self)
 Returns a list of all keys that have been written to on the contract so far.
 
-#### quick_read(self, variable, key=None, args=None)
+##### quick_read(self, variable, key=None, args=None)
 Similar to the `ContractingClient` method `get_var`, but does not need a contract name. Instead, it takes the `variable` name, and the key, which is the first dimension of the hash. Additional dimension are added in the `args` argument.
 
 Example that expands on the one in `get_var` above:
@@ -91,13 +91,13 @@ def set(account: str, amount: int):
 
 Assuming the contract has been loaded from the `ContractingClient`, `quick_read(variable='balances', key='account')` would be valid.
 
-#### quick_write(self, variable, key=None, value=None, args=None)
+##### quick_write(self, variable, key=None, value=None, args=None)
 Similar to the `ContractingClient` method `set_var`, with the same differences as `quick_read`. 
 
-#### run_private_function(self, f, signer=None, environment=None, **kwargs)
+##### run_private_function(self, f, signer=None, environment=None, **kwargs)
 Allows execution of non-exported functions.
 
-#### \_\_getattr__(self, item)
+##### \_\_getattr__(self, item)
 The override of the special Python method. This is called when a 'normal' API method is not successful, a.k.a any method not listed in this document that is either dynamically generated with a partial function, or potentially a variable.
 
 Python will attempt to find a corresponding partial function to execute first. If the smart contract does not have an exported function available, it will assume that the attribute refers to somewhere in storage. If this is not the case, an `Exception` is thrown.
@@ -136,8 +136,8 @@ This time, `balances` is being accessed but is not a function. Therefore, it is 
 
 Note: this has the unwanted behavior of throwing `Exceptions` even if the variable is correct, but the storage has not been set before.
 
-#### now(self)
+##### now(self)
 Returns a `DateTime` object from the standard library that correspondes to the local system time. Used to pass as an environment variable in execution.
 
-#### \_abstract_function_call(self, signer, executor, contract_name, func, environment=None, metering=None, now=None, **kwargs)
+##### \_abstract_function_call(self, signer, executor, contract_name, func, environment=None, metering=None, now=None, **kwargs)
 Internal method for construction partial functions on initialization.
