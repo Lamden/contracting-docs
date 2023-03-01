@@ -99,7 +99,6 @@ Built-Ins	|	Python3.6	|	Contracting	| Reason for Restriction
 [sum()](https://docs.python.org/3/library/methods.html#sum)						|	✓	|	✓
 [super()](https://docs.python.org/3/library/methods.html#super)					|	✓	|	✘	| Super is not supported because classes are disabled
 [tuple()](https://docs.python.org/3/library/methods.html#func-tuple)				|	✓	|	✓
-[type()](https://docs.python.org/3/library/methods.html#type)						|	✓	|	✓
 [vars()](https://docs.python.org/3/library/methods.html#vars)						|	✓	|	✘	| Allows exploration path into security exploit development.
 [zip()](https://docs.python.org/3/library/methods.html#zip)						|	✓	|	✓
 
