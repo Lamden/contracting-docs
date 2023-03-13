@@ -185,16 +185,10 @@ class Hash(Datum):
     def __init__(self, contract, name, driver: ContractDriver=driver, default_value=None):
         ...
 
-    def set(self, key, value):
+    def all(self):
         ...
 
-    def get(self, item):
-        ...
-
-    def all(self, *args):
-        ...
-
-    def clear(self, *args):
+    def clear(self):
        ...
 
     def __setitem__(self, key, value):
@@ -217,115 +211,11 @@ def some_contract():
 	balances['raghu'] == 0 # True
 ```
 
-#### set(self, key, value)
-
-Equivalent to Variable's `get` but accepts an additional argument to specify the key. For example, the following code executed would result in the following state space.
-
-```python
-def some_contract():
-	balances = Hash(default_value=0)
-	balances.set('stu', 1_000_000)
-	balances.set('raghu', 100)
-	balances.set('tejas', 777)
-```
-
 Key	|	Value
 -	| -
 some_contract.balances:stu | 1,000,000
 some_contract.balances:raghu | 100
 some_contract.balances:tejas | 777
-
-#### Multihashes
-
-You can provide an arbitrary number of keys (up to 16) to `set` and it will react accordingly, writing data to the dimension of keys that you provided. For example:
-
-```python
-def subaccounts():
-	balances = Hash(default_value=0)
-	balances.set('stu', 1_000_000)
-	balances.set(('stu', 'raghu'), 1_000)
-	balances.set(('raghu', 'stu'), 555)
-	balances.set(('stu', 'raghu', 'tejas'), 777)
-```
-
-This will create the following state space:
-
-Key	|	Value
--	| -
-subaccounts.balances:stu | 1,000,000
-subaccounts.balances:stu:raghu | 1,000
-subaccounts.balances:raghu:stu | 555
-subaccounts.balances:stu:raghu:tejas | 777
-
-#### get(self, key)
-
-Inverse of `set`, where the value for a provided key is returned. If it is `None`, it will set it to the `default_value` provided on initialization.
-
-```python
-def some_contract():
-	balances = Hash(default_value=0)
-	balances.set('stu', 1_000_000)
-	balances.set('raghu', 100)
-	balances.set('tejas', 777)
-
-	balances.get('stu') == 1_000_000 # True
-	balances.get('raghu') == 100 # True
-	balances.get('tejas') == 777 # True
-```
-
-The same caveat applies here 
-
-#### Multihashes
-Just like `set`, you retrieve data stored in multihashes by providing the list of keys used to write data to that location. Just like `get` with a single key, the default value will be returned if no value at the storage location is found.
-
-```python
-def subaccounts():
-	balances = Hash(default_value=0)
-	balances.set('stu', 1_000_000)
-	balances.set(('stu', 'raghu'), 1_000)
-	balances.set(('raghu', 'stu'), 555)
-	balances.set(('stu', 'raghu', 'tejas'), 777)
-
-	balances.get('stu') == 1_000_000 # True
-	balances.get(('stu', 'raghu')) == 1_000 # True
-	balances.get(('raghu', 'stu')) == 555 # True
-	balances.get(('stu', 'raghu', 'tejas')) == 777 # True
-
-	balances.get(('stu', 'raghu', 'tejas', 'steve')) == 0 # True
-```
-
-__NOTE:__ If storage returns a Python object or dictionary, modifications onto that dictionary will __not__ be synced to storage until you set the key to the altered value again. This is vitally important.
-```python
-owner = Hash(default_value=0)
-owner.set('stu') = {
-	'complex': 123,
-	'object': 567
-}
-
-d = owner.get('stu') # Get the dictionary from storage
-d['complex'] = 999 # Set a value on the retrieved dictionary
-e = owner.get('stu') # Retrieve the same value for comparison
-
-d['complex'] == e['complex'] # False
-```
-
-```python
-owner = Hash(default_value=0)
-owner.set('stu') = {
-	'complex': 123,
-	'object': 567
-}
-
-d = owner.get('stu') # Get the dictionary from storage
-d['complex'] = 999 # Set a value on the retrieved dictionary
-
-owner.set('stu', d) # Set storage location to the modified dictionary
-
-e = owner.get('stu') # Retrieve the same value for comparison
-
-d['complex'] == e['complex'] # True!
-```
-
 
 #### \_\_setitem\_\_(self, key, value):
 Equal functionality to `set`, but allows slice notation for convenience. __This is less verbose and the preferred method of setting storage on a Hash.__
@@ -382,9 +272,6 @@ subaccounts.balances:raghu:tejas | 100_000
 ```python
 balances.all()
 >> [1000000, 1000, 555, 777, 10000, 100000]
-
-balances.all('raghu')
->> [777, 10000, 100000]
 ```
 
 #### clear(self, \*args)
@@ -399,12 +286,6 @@ subaccounts.balances:stu:tejas | 555
 subaccounts.balances:raghu | 777
 subaccounts.balances:raghu:stu | 10_000
 subaccounts.balances:raghu:tejas | 100_000
-
-```python
-balances.clear('stu')
-balances.all() # None of Raghu's accounts are affected
->> [777, 10000, 100000]
-```
 
 ```python
 balances.clear()
