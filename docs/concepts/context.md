@@ -2,7 +2,7 @@
 
 When you are running a contract, you often want to know who is running it. For example, if someone who isn't an account owner tries to spend their money, you need to have some way of identifying who that person is and prevent that from happening. This is where Context, or `ctx` inside of smart contracts, comes into play.
 
-There are four types of `ctx` variables.
+There are six types of `ctx` variables.
 
 Variable	|	functionality	|	Details
 -	|	-	|	-	
@@ -10,6 +10,8 @@ ctx.caller	| The identity of the person or smart contract calling the method.	| 
 ctx.this	| The identity of the smart contract where this variable is used.	| Constant. Never changed. Use for giving smart contracts rights and accounts.
 ctx.signer	| The top-level signer of the transaction. This is constant throughout the transaction's execution	|
 ctx.owner	| The owner of the contract, which is an optional field that can be set on time of submission. If this field is set, only the ctx.owner can call any of the methods on the smart contract. This allows for a parent-child model.
+ctx.submission_name | The name of the contract you are submitting at the time of submission | ctx.signer at the time of submitting a contract won't give you the name of the contract you are submitting but the name of the contract that is submitting your contract. Thus this is needed.
+ctx.entry	| Returns tuple with contract_name and function_name that called the contract	|
 
 ### ctx.caller
 
