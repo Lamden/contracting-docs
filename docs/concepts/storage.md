@@ -382,9 +382,6 @@ subaccounts.balances:raghu:tejas | 100_000
 ```python
 balances.all()
 >> [1000000, 1000, 555, 777, 10000, 100000]
-
-balances.all('raghu')
->> [777, 10000, 100000]
 ```
 
 #### clear(self, \*args)
@@ -399,12 +396,6 @@ subaccounts.balances:stu:tejas | 555
 subaccounts.balances:raghu | 777
 subaccounts.balances:raghu:stu | 10_000
 subaccounts.balances:raghu:tejas | 100_000
-
-```python
-balances.clear('stu')
-balances.all() # None of Raghu's accounts are affected
->> [777, 10000, 100000]
-```
 
 ```python
 balances.clear()
